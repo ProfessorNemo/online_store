@@ -6,9 +6,8 @@ class CreateGenres < ActiveRecord::Migration[6.1]
       DROP TABLE IF EXISTS genres;
 
       CREATE TABLE genres (
-          genre_id INT GENERATED ALWAYS AS IDENTITY,
+          genre_id serial PRIMARY KEY,
           name_genre TEXT,
-          PRIMARY KEY(genre_id),
           CONSTRAINT uniq_genre UNIQUE (name_genre),
           created_at timestamp(6) NOT NULL,
           updated_at timestamp(6) NOT NULL

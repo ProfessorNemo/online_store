@@ -6,3 +6,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+client = Client.new name_client: 'Попов Илья', city_id: '1', email: 'popov@mail.ru'
+client.save
+buy = Buy.new buy_description: 'Связаться со мной по вопросу доставки', client_id: '5'
+buy.save
+buy_book_order_one = BuyBook.new buy_id: '5', book_id: '8', amount: '2'
+buy_book_order_one.save
+buy_book_order_two = BuyBook.new buy_id: '5', book_id: '2', amount: '1'
+buy_book_order_two.save

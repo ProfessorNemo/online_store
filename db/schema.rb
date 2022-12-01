@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_30_220051) do
+ActiveRecord::Schema.define(version: 2022_12_01_165101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authors", primary_key: "author_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "authors", primary_key: "author_id", id: :serial, force: :cascade do |t|
     t.text "name_author"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name_author"], name: "uniq_author", unique: true
   end
 
-  create_table "books", primary_key: "book_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "books", primary_key: "book_id", id: :serial, force: :cascade do |t|
     t.text "title"
     t.integer "author_id", null: false
     t.integer "genre_id"
@@ -32,33 +32,38 @@ ActiveRecord::Schema.define(version: 2022_11_30_220051) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "buy_books", primary_key: "buy_book_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "buy_archives", primary_key: "buy_archive_id", id: :serial, force: :cascade do |t|
+    t.integer "buy_id"
+    t.integer "client_id"
+    t.integer "book_id"
+    t.date "date_payment"
+    t.integer "amount"
+    t.decimal "price", precision: 8, scale: 2
+  end
+
+  create_table "buy_books", primary_key: "buy_book_id", id: :serial, force: :cascade do |t|
     t.integer "buy_id"
     t.integer "book_id"
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["buy_id", "book_id"], name: "uniq_book", unique: true
   end
 
-  create_table "buy_steps", primary_key: "buy_step_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "buy_steps", primary_key: "buy_step_id", id: :serial, force: :cascade do |t|
     t.integer "buy_id"
     t.integer "step_id"
     t.date "date_step_beg"
     t.date "date_step_end"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["buy_id", "step_id"], name: "uniq_step", unique: true
   end
 
-  create_table "buys", primary_key: "buy_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "buys", primary_key: "buy_id", id: :serial, force: :cascade do |t|
     t.text "buy_description"
     t.integer "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "cities", primary_key: "city_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "cities", primary_key: "city_id", id: :serial, force: :cascade do |t|
     t.text "name_city", null: false
     t.integer "days_delivery"
     t.datetime "created_at", precision: 6, null: false
@@ -66,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_11_30_220051) do
     t.index ["name_city"], name: "uniq_city", unique: true
   end
 
-  create_table "clients", primary_key: "client_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "clients", primary_key: "client_id", id: :serial, force: :cascade do |t|
     t.text "name_client"
     t.integer "city_id"
     t.string "email", limit: 80, null: false
@@ -75,14 +80,14 @@ ActiveRecord::Schema.define(version: 2022_11_30_220051) do
     t.index ["email"], name: "uniq_email", unique: true
   end
 
-  create_table "genres", primary_key: "genre_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "genres", primary_key: "genre_id", id: :serial, force: :cascade do |t|
     t.text "name_genre"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name_genre"], name: "uniq_genre", unique: true
   end
 
-  create_table "steps", primary_key: "step_id", id: :integer, default: nil, force: :cascade do |t|
+  create_table "steps", primary_key: "step_id", id: :serial, force: :cascade do |t|
     t.text "name_step"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

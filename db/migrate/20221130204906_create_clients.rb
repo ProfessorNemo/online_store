@@ -6,11 +6,10 @@ class CreateClients < ActiveRecord::Migration[6.1]
       DROP TABLE IF EXISTS clients CASCADE;
 
       CREATE TABLE IF NOT EXISTS clients (
-          client_id INT GENERATED ALWAYS AS IDENTITY,
+          client_id serial PRIMARY KEY,
           name_client TEXT,
           city_id INT,
           email varchar(80) NOT NULL,
-          PRIMARY KEY(client_id),
           FOREIGN KEY (city_id) REFERENCES cities (city_id),
           CONSTRAINT uniq_email UNIQUE (email),
           created_at timestamp(6) NOT NULL,
