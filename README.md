@@ -10,7 +10,7 @@
 ### Установка:
 1. Клонируйте репозиторий
 ```
-$ git clone git@github.com:phobco/online_store.git
+$ git clone git@github.com:ProfessorNemo/online_store.git
 ```
 
 2. Установите библиотеки
