@@ -80,4 +80,36 @@ class Client < ApplicationRecord
                                                                      WHERE buy_steps.step_id = 1 AND date_step_end IS NOT NULL
                                                                      GROUP BY buys.client_id)")
   }
+
+  # Вывести фамилии всех клиентов, которые заказали книгу Булгакова «Мастер и Маргарита».
+
+
+  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #  # Вывести фамилии всех клиентов, которые заказали книгу Булгакова «Мастер и Маргарита».
+
+  scope :actions_sql, lambda {
+    find_by_sql(["SELECT DISTINCT name_client
+                              FROM
+                                  clients
+                                  INNER JOIN buys USING(client_id)
+                                  INNER JOIN buy_books USING(buy_id)
+                                  INNER JOIN books USING(book_id)
+                              WHERE title = :title and author_id = :author_id",
+                 { title: 'Мастер и Маргарита', author_id: 1 }])
+  }
+
+  # request = Client.actions_sql
+  # request.first.name_client == "Абрамова Екатерина" # true
+
+  scope :request_sql, lambda { |title, author|
+    find_by_sql(["SELECT DISTINCT name_client
+                              FROM
+                                  clients
+                                  INNER JOIN buys USING(client_id)
+                                  INNER JOIN buy_books USING(buy_id)
+                                  INNER JOIN books USING(book_id)
+                              WHERE title = ? and author_id = ?", title, author])
+  }
+
+  # Client.request_sql('Мастер и Маргарита', 1)
 end

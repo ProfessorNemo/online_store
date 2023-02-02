@@ -15,4 +15,14 @@ class Genre < ApplicationRecord
                                   ORDER BY Количество DESC
                                   LIMIT 1")
   }
+
+  def self.actions_sql
+    connection.select_all("SELECT name_genre, SUM(buy_books.amount) as Количество
+                                  FROM genres
+                                      JOIN books USING(genre_id)
+                                      JOIN buy_books USING(book_id)
+                                  GROUP BY name_genre
+                                  ORDER BY Количество DESC
+                                  LIMIT 1")
+  end
 end

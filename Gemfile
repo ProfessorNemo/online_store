@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.3'
 
+gem 'blazer'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.0'
@@ -25,3 +26,5 @@ group :development do
   gem 'rubocop-rails', '~> 2.14', require: false
   gem 'web-console', '>= 4.1.0'
 end
+
+gem "active_record_simple_execute", "~> 0.9.0"
